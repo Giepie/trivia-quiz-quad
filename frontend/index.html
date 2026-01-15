@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia Quiz</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="dist/output.css">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-12 max-w-3xl">
+        <!-- Start Screen -->
+        <div id="start-screen" class="card">
+            <!-- Header in Card -->
+            <div class="flex items-center justify-center gap-4 mb-8 pb-8 border-b border-gray-200">
+                <div class="flex-shrink-0 flex items-center justify-center w-16 h-16 bg-indigo-100 rounded-full">
+                    <i class="fas fa-graduation-cap text-3xl text-indigo-600"></i>
+                </div>
+                <div class="text-left">
+                    <h1 class="text-4xl font-bold text-gray-900 mb-1">Trivia Quiz</h1>
+                    <p class="text-lg text-gray-600">Because knowing random facts is cool</p>
+                </div>
+            </div>
+            
+            <!-- Configuration Form -->
+            <div class="space-y-6 mb-8">
+                <div>
+                    <label for="player-name" class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-user text-gray-400 mr-2"></i>Your Name <span class="text-gray-400 font-normal">(Optional)</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        id="player-name" 
+                        placeholder="Enter your name..."
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 focus:outline-none transition-all"
+                        maxlength="30"
+                    />
+                </div>
+
+                <!-- Difficulty and Type Grid -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-3">
+                            <i class="fas fa-signal text-gray-400 mr-2"></i>Difficulty
+                        </label>
+                        <div class="space-y-2">
+                            <button type="button" class="difficulty-btn active" data-difficulty="">
+                                <i class="fas fa-dice mr-2"></i>Mixed
+                            </button>
+                            <button type="button" class="difficulty-btn" data-difficulty="easy">
+                                <i class="fas fa-cloud-sun mr-2"></i>Easy
+                            </button>
+                            <button type="button" class="difficulty-btn" data-difficulty="medium">
+                                <i class="fas fa-cloud-rain mr-2"></i>Medium
+                            </button>
+                            <button type="button" class="difficulty-btn" data-difficulty="hard">
+                                <i class="fas fa-cloud-bolt mr-2"></i>Hard
+                            </button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-3">
+                            <i class="fas fa-clipboard-list text-gray-400 mr-2"></i>Question Type
+                        </label>
+                        <div class="space-y-2">
+                            <button type="button" class="type-btn active" data-type="">
+                                <i class="fas fa-dice mr-2"></i>Mixed
+                            </button>
+                            <button type="button" class="type-btn" data-type="multiple">
+                                <i class="fas fa-list mr-2"></i>Multiple Choice
+                            </button>
+                            <button type="button" class="type-btn" data-type="boolean">
+                                <i class="fas fa-toggle-on mr-2"></i>True / False
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Start Button -->
+            <div class="text-center pt-2">
+                <button id="start-btn" class="btn-primary">
+                    <i class="fas fa-play mr-2"></i>Start Quiz
+                </button>
+            </div>
+
+            <!-- Error Message -->
+            <div id="error-message" class="hidden mt-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg">
+                <div class="flex items-start">
+                    <i class="fas fa-exclamation-circle text-red-500 mt-0.5 mr-3"></i>
+                    <div>
+                        <p class="font-semibold">Unable to load questions</p>
+                        <p class="text-sm mt-1">Please check your connection and try again.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="hidden">
+            <div class="card">
+                <!-- Progress Section -->
+                <div class="mb-8">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-sm font-medium text-gray-600">
+                            Question <span id="current-question" class="font-bold text-gray-900">1</span> of <span id="total-questions">10</span>
+                        </span>
+                        <div class="flex items-center gap-2">
+                            <span id="category-pill" class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full"></span>
+                            <span id="difficulty-pill" class="px-3 py-1 text-xs font-medium rounded-full"></span>
+                        </div>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-3">
+                        <div id="progress-bar" class="bg-indigo-600 h-3 rounded-full transition-all duration-500 ease-out" style="width: 10%"></div>
+                    </div>
+                </div>
+
+                <!-- Question -->
+                <h2 id="question-text" class="text-2xl font-semibold mb-8 text-gray-900 leading-relaxed">Question text will appear here</h2>
+
+                <div id="answers-container" class="space-y-2">
+                    <!-- Answer buttons will be inserted here -->
+                </div>
+
+                <div class="mt-8 flex justify-between gap-4">
+                    <button id="prev-btn" class="btn-secondary" disabled>
+                        <i class="fas fa-arrow-left mr-2"></i>Previous
+                    </button>
+                    <button id="next-btn" class="btn-primary">
+                        Next<i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden">
+            <div class="card text-center">
+                <div class="mb-8">
+                    <div class="flex items-center justify-center gap-4 mb-6 pb-6 border-b border-gray-200">
+                        <div class="flex-shrink-0 flex items-center justify-center w-20 h-20 bg-indigo-100 rounded-full">
+                            <i class="fas fa-trophy text-4xl text-indigo-600"></i>
+                        </div>
+                        <div class="text-left">
+                            <h2 class="text-3xl font-bold text-gray-900 mb-1 break-words">Quiz Complete<span id="player-name-display" class="break-words"></span>!</h2>
+                            <p class="text-lg text-gray-600">Now you are a little cooler... right?</p>
+                        </div>
+                    </div>
+                    <div class="text-6xl font-bold text-indigo-600 mb-3">
+                        <span id="score">0</span><span class="text-gray-400">/</span><span id="total">10</span>
+                    </div>
+                    <p class="text-gray-600 text-xl font-medium" id="score-message">Great job!</p>
+                </div>
+
+                <div id="results-details" class="text-left mb-8 max-h-96 overflow-y-auto border border-gray-200 rounded-lg p-4">
+                    <!-- Detailed results will be inserted here -->
+                </div>
+
+                <button id="restart-btn" class="btn-primary">
+                    <i class="fas fa-rotate-right mr-2"></i>Play Again
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

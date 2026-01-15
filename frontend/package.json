@@ -1,0 +1,15 @@
+{
+  "name": "trivia-frontend",
+  "version": "1.0.0",
+  "description": "Trivia quiz frontend with Tailwind CSS",
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/input.css -o ./dist/output.css",
+    "watchcss": "tailwindcss -i ./src/input.css -o ./dist/output.css --watch"
+  },
+  "keywords": ["trivia", "quiz"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  }
+}

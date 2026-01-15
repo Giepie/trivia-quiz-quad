@@ -1,0 +1,17 @@
+# .NET Build Output
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+publish/
+
+# Node
+node_modules/
+npm-debug.log
+
+# VS Code
+.vscode/
+
+# Environment
+.env
+.env.local
