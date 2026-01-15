@@ -2,6 +2,8 @@
 
 A web application for answering trivia questions from the Open Trivia Database. Built with C# ASP.NET Core backend and Tailwind CSS frontend.
 
+**🌐 Live Demo:** [https://zealous-bay-05d98bc03.2.azurestaticapps.net/](https://zealous-bay-05d98bc03.2.azurestaticapps.net/)
+
 ## Overview
 
 This application provides two endpoints:
