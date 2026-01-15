@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Trivia quiz frontend with Tailwind CSS",
   "scripts": {
+    "build": "tailwindcss -i ./src/input.css -o ./dist/output.css",
     "build:css": "tailwindcss -i ./src/input.css -o ./dist/output.css",
     "watchcss": "tailwindcss -i ./src/input.css -o ./dist/output.css --watch"
   },
